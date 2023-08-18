@@ -1,0 +1,48 @@
+.bg_login {
+  background: #0088cc;
+  background: -webkit-linear-gradient(-135deg, #0088cc, #a53efb);
+  background: -o-linear-gradient(-135deg, #0088cc, #a53efb);
+  background: -moz-linear-gradient(-135deg, #0088cc, #a53efb);
+  background: linear-gradient(-135deg, #0088cc, #a53efb);
+}
+.wrap_login {
+  width: 40%;
+  border-radius: 25px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 5%;
+  margin: 0 5%;
+  background: white;
+  box-shadow: 0 0 25px;
+}
+
+.span_title_login {
+  font-family: Poppins-Regular, sans-serif;
+  font-size: 24px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-bottom: 10%;
+}
+.border-radius-10{
+  border-radius: 10px;
+}
+.button-login {
+  --cui-btn-bg: #4768e0;
+  --cui-btn-border-color: #4768e0;
+  --cui-btn-hover-bg: #7653ee;
+  --cui-btn-hover-border-color: #7653ee;
+  --cui-btn-active-bg: #4768e0;
+  --cui-btn-active-border-color: #4768e0;
+  --cui-btn-disabled-bg: #4768e0;
+  --cui-btn-disabled-border-color: #4768e0;
+  --cui-btn-shadow: rgba(157, 165, 177, 0.5);
+}

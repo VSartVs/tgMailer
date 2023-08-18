@@ -1,0 +1,14 @@
+th.col {
+  display: block;
+  position: relative;
+}
+th[data-sorting-direction="asc"] svg, th[data-sorting-direction="desc"] svg {
+  display: none;
+}
+
+th.sorted[data-sorting-direction="asc"] svg, th.sorted[data-sorting-direction="desc"] svg {
+  display: flex;
+  align-self: flex-end;
+  flex: 0 0 auto;
+  margin-bottom: 5px;
+}
