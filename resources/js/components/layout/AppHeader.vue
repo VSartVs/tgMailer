@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import {useMainStore} from "../../stores/mainStore"
+import {useAuthStore} from "../../stores/authStore"
+import AppBreadcrumb from "./AppBreadcrumb.vue"
+
+const mainStore = useMainStore()
+const authStore = useAuthStore()
+</script>
+
 <template>
   <CHeader position="sticky" class="mb-4">
     <CContainer fluid>
@@ -8,7 +17,7 @@
         <CNavLink href="/settings">
           <CIcon icon="cilList" size="xl"/>
         </CNavLink>
-        <CNavLink href="#" @click="logOut">
+        <CNavLink href="#" @click="authStore.logout">
           <CIcon icon="cil-lock-locked"/>
           Выйти
         </CNavLink>
@@ -20,14 +29,3 @@
     </CContainer>
   </CHeader>
 </template>
-
-<script lang="ts" setup>
-import {useMainStore} from "../../stores/mainStore"
-import AppBreadcrumb from "./AppBreadcrumb.vue"
-
-const mainStore = useMainStore()
-const logOut = () => {
-  //this.$store.dispatch('auth/logout');
-  //this.$router.push('/login');
-}
-</script>

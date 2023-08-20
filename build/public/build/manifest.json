@@ -1,0 +1,109 @@
+{
+  "PasswordInput.css": {
+    "file": "assets/PasswordInput-44d50634.css",
+    "src": "PasswordInput.css"
+  },
+  "_HeaderCell-588a6090.js": {
+    "file": "assets/HeaderCell-588a6090.js",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "_PasswordInput-3a01da79.js": {
+    "css": [
+      "assets/PasswordInput-44d50634.css"
+    ],
+    "file": "assets/PasswordInput-3a01da79.js",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-ead0f21c.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.ts": {
+    "css": [
+      "assets/app-ead0f21c.css"
+    ],
+    "dynamicImports": [
+      "resources/js/pages/Dashboard.vue",
+      "resources/js/layouts/PageLayout.vue",
+      "resources/js/pages/TelegramBots.vue",
+      "resources/js/pages/TelegramMailings.vue",
+      "resources/js/pages/Settings.vue",
+      "resources/js/pages/Login.vue",
+      "resources/js/pages/Page404.vue"
+    ],
+    "file": "assets/app-3852bbd1.js",
+    "isEntry": true,
+    "src": "resources/js/app.ts"
+  },
+  "resources/js/layouts/PageLayout.vue": {
+    "file": "assets/PageLayout-58572e63.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/layouts/PageLayout.vue"
+  },
+  "resources/js/pages/Dashboard.vue": {
+    "file": "assets/Dashboard-6856a18b.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Dashboard.vue"
+  },
+  "resources/js/pages/Login.vue": {
+    "file": "assets/Login-d96e976d.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_PasswordInput-3a01da79.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Login.vue"
+  },
+  "resources/js/pages/Page404.vue": {
+    "file": "assets/Page404-0ae68b31.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Page404.vue"
+  },
+  "resources/js/pages/Settings.vue": {
+    "file": "assets/Settings-7388465a.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_PasswordInput-3a01da79.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Settings.vue"
+  },
+  "resources/js/pages/TelegramBots.vue": {
+    "file": "assets/TelegramBots-7fe0ceef.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_HeaderCell-588a6090.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/TelegramBots.vue"
+  },
+  "resources/js/pages/TelegramMailings.css": {
+    "file": "assets/TelegramMailings-9f296853.css",
+    "src": "resources/js/pages/TelegramMailings.css"
+  },
+  "resources/js/pages/TelegramMailings.vue": {
+    "css": [
+      "assets/TelegramMailings-9f296853.css"
+    ],
+    "file": "assets/TelegramMailings-9c49629a.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_HeaderCell-588a6090.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/TelegramMailings.vue"
+  }
+}

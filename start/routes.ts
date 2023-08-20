@@ -19,6 +19,13 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import authRoutes from './api/auth'
+import adminRoutes from './api/admin'
+
+Route.group(() => {
+  authRoutes()
+  adminRoutes()
+}).prefix('api/v1/')
 
 Route.get('*', async ({ view }) => {
   return view.render('app')

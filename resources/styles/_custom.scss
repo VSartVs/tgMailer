@@ -12,3 +12,10 @@ th.sorted[data-sorting-direction="asc"] svg, th.sorted[data-sorting-direction="d
   flex: 0 0 auto;
   margin-bottom: 5px;
 }
+
+.form-floating > .form-control:focus ~ label::after,
+.form-floating > .form-control:not(:placeholder-shown) ~ label::after,
+.form-floating > .form-control-plaintext ~ label::after,
+.form-floating > .form-select ~ label::after {
+  background-color: transparent;
+}

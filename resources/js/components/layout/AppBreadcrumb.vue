@@ -1,15 +1,3 @@
-<template>
-  <CBreadcrumb class="d-md-down-none me-auto mb-0" style="--cui-breadcrumb-divider: '>'">
-    <CBreadcrumbItem
-      v-for="(item, index) in breadcrumbs"
-      :key="item"
-      :href="index === breadcrumbs.length - 1 ? '' : item.path"
-      :active="index === breadcrumbs.length - 1">
-      {{ index === breadcrumbs.length - 1 && item.param_length > 0 ? item.param : item.name }}
-    </CBreadcrumbItem>
-  </CBreadcrumb>
-</template>
-
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 import router from '../../router'
@@ -38,3 +26,15 @@ onMounted(() => {
   breadcrumbs.value = getBreadcrumbs()
 })
 </script>
+
+<template>
+  <CBreadcrumb class="d-md-down-none me-auto mb-0" style="--cui-breadcrumb-divider: '>'">
+    <CBreadcrumbItem
+      v-for="(item, index) in breadcrumbs"
+      :key="item"
+      :href="index === breadcrumbs.length - 1 ? '' : item.path"
+      :active="index === breadcrumbs.length - 1">
+      {{ index === breadcrumbs.length - 1 && item.param_length > 0 ? item.param : item.name }}
+    </CBreadcrumbItem>
+  </CBreadcrumb>
+</template>

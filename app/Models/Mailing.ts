@@ -1,12 +1,14 @@
 import {DateTime} from 'luxon'
 import {
-  BaseModel,
   beforeSave,
   column,
   BelongsTo,
   afterFetch,
   afterFind,
-  belongsTo, hasMany, HasMany
+  belongsTo,
+  hasMany,
+  HasMany,
+  BaseModel
 } from '@ioc:Adonis/Lucid/Orm'
 import Bot from 'App/Models/Bot'
 import MailingStatus from 'App/Models/MailingStatus'

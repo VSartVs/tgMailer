@@ -37,6 +37,7 @@
     "@coreui/vue-chartjs": "^2.1.0",
     "@vitejs/plugin-vue": "^4.3.1",
     "@vuepic/vue-datepicker": "^6.0.0",
+    "adonis5-jwt": "^1.1.7",
     "axios": "^1.4.0",
     "luxon": "^3.4.0",
     "mysql2": "^3.6.0",

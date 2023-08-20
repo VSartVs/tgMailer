@@ -25,7 +25,9 @@
     "@adonisjs/shield",
     "./providers/ViteProvider",
     "@adonisjs/lucid",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "./providers/DataBaseProvider",
+    "adonis5-jwt"
   ],
   "metaFiles": [
     {

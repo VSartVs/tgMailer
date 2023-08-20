@@ -1,6 +1,16 @@
-<script setup lang="ts">
+<script setup lang='ts'>
+import {ref} from "vue"
+import {useAuthStore} from "../stores/authStore"
+import PasswordInput from '../components/inputs/PasswordInput.vue'
+import {storeToRefs} from "pinia";
 
-import PasswordInput from "../components/inputs/PasswordInput.vue";
+const authStore = useAuthStore()
+const {errors, validated} = storeToRefs(authStore)
+
+const email = ref('')
+const password = ref('')
+
+
 </script>
 
 <template>
@@ -12,15 +22,22 @@ import PasswordInput from "../components/inputs/PasswordInput.vue";
                   src="/icons/telegram.svg"
                   width="200" height="200"/>
         </div>
-        <CForm class="w-100">
+        <CForm class="w-100"
+               novalidate>
           <div class="mb-3">
-            <CFormInput type="email" id="emailInput" floatingLabel="Email" placeholder="name@example.com"/>
+            <CFormInput v-model="email" type="email" id="emailInput"
+                        floatingLabel="Email" placeholder="name@example.com"
+                        :valid="!Object.prototype.hasOwnProperty.call(errors, 'email') && validated"
+                        :invalid="Object.prototype.hasOwnProperty.call(errors, 'email') && validated"
+                        :feedback="Object.prototype.hasOwnProperty.call(errors, 'email') ? errors.email[0] : ''"
+            />
           </div>
           <div class="mb-3">
-            <password-input/>
+            <password-input v-model="password" :validated="validated" :errors="errors"/>
           </div>
-          <CButton color="primary" type="button" @click=""
-                   class="d-flex w-100 justify-content-center m-auto mt-3 border-radius-10 button-login">Войти</CButton>
+          <CButton color="primary" type="button" @click="authStore.login(email, password)"
+                   class="d-flex w-100 justify-content-center m-auto mt-3 border-radius-10 button-login">Войти
+          </CButton>
 
         </CForm>
       </div>
