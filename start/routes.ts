@@ -21,10 +21,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 import authRoutes from './api/auth'
 import adminRoutes from './api/admin'
+import mailingRoutes from './api/mailer'
 
 Route.group(() => {
   authRoutes()
   adminRoutes()
+  mailingRoutes()
 }).prefix('api/v1/')
 
 Route.get('*', async ({ view }) => {

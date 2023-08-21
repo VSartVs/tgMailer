@@ -11,7 +11,7 @@ export default class Chat extends BaseModel {
   @column()
   public chatId: string
 
-  @column.date({
+  @column.dateTime({
     serialize: (value) => value.toFormat('dd.mm.yyyy HH:mm')
   })
   public sentAt: DateTime | null
