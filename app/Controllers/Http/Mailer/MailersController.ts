@@ -1,15 +1,17 @@
 import {HttpContextContract} from '@ioc:Adonis/Core/HttpContext'
-import MailingValidator from 'App/Validators/Mailer/MailingValidator'
+import WorkerPool from "App/Services/Workers/workerPool";
+/*import MailingValidator from 'App/Validators/Mailer/MailingValidator'
 import Mailing from 'App/Models/Mailing'
 import Bot from 'App/Models/Bot'
-import Chat from 'App/Models/Chat'
+import Chat from 'App/Models/Chat'*/
+
 
 
 export default class MailersController {
 
   public async create({request, response}: HttpContextContract) {
 
-    const data = await request.validate(MailingValidator)
+   /* const data = await request.validate(MailingValidator)
 
     const bot = await Bot.firstOrCreate(
       {name: data.botName},
@@ -34,7 +36,12 @@ export default class MailersController {
         )
     }
 
+    const i = mailing.id*/
+    const i = await request.input('mailing_id')
 
-    return response.status(200)
+     WorkerPool.run(() => ({i}))
+
+    return response.json('ok')
+
   }
 }
