@@ -26,6 +26,6 @@ declare module '@ioc:Adonis/Core/Event' {
   |
   */
   interface EventsList {
-    //
+    //'change:mailing': { mailingId: number, isActive: boolean }
   }
 }

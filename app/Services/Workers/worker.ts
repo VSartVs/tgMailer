@@ -1,4 +1,4 @@
-const { isMainThread, parentPort } = require('worker_threads');
+const { isMainThread, parentPort } = require('worker_threads')
 
 if (isMainThread) {
   throw new Error('Its not a worker');
@@ -10,20 +10,18 @@ function delay(ms: number) {
 }
 
 async function loop(){
-  let i = 0;
-  while (i < 30) {
-    await delay(2000)
-    i++
-  }
+    await delay(5000)
 }
 
 
-parentPort.on('message', (data) => {
-  console.log('START mailing # '+data.i);
+
+parentPort.on('message', (mailing: object) => {
+  console.log('start mailing # ' + mailing.mailingId)
 
   loop().then(() => {
-    parentPort.postMessage('END of mailing # '+data.i);
-    console.log('END of mailing # '+data.i);
+    parentPort.postMessage({botId: mailing.botId});
+    console.log('END of mailing # '+ mailing.mailingId);
   })
+
 
 });
