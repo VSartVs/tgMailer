@@ -32,4 +32,5 @@ export default Env.rules({
   VITE_BASE_API_URL: Env.schema.string(),
   VITE_CURRENT_API_VERSION: Env.schema.string(),
   NUMBER_OF_THREADS: Env.schema.number(),
+  QUEUE_SIZE: Env.schema.number(),
 })

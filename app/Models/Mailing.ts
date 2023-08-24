@@ -23,17 +23,17 @@ export default class Mailing extends BaseModel {
   public message: String
 
   @column.dateTime({
-    serialize: (value) => value.toFormat('dd.mm.yyyy HH:mm')
+    serialize: (value) => value.toFormat('dd.LL.yyyy HH:mm')
   })
   public requiredStartAt: DateTime
 
   @column.dateTime({
-    serialize: (value) => value.toFormat('dd.mm.yyyy HH:mm')
+    serialize: (value) => value.toFormat('dd.LL.yyyy HH:mm')
   })
   public actualStartAt: DateTime | null
 
   @column.dateTime({
-    serialize: (value) => value.toFormat('dd.mm.yyyy HH:mm')
+    serialize: (value) => value.toFormat('dd.LL.yyyy HH:mm')
   })
   public endAt: DateTime | null
 

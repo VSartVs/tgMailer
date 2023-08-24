@@ -1,13 +1,14 @@
 import {Worker} from 'worker_threads'
-import path from 'path';
+import path from 'path'
 import Env from '@ioc:Adonis/Core/Env'
-
 
 class WorkerPool<N> {
     private queue: QueueItem<N>[] = [];
     private workersById: { [key: number]: Worker } = {};
     private activeWorkersById: { [key: number]: boolean } = {};
     private activeBots: number[] = []
+    private workerDb: Worker | null = null
+    private maxQueueLength: number = Env.get('QUEUE_SIZE')
 
 
     public constructor(public workerPath: string, public numberOfThreads: number) {
@@ -23,6 +24,14 @@ class WorkerPool<N> {
             this.workersById[i] = new Worker(this.workerPath);
             this.activeWorkersById[i] = false;
         }
+        this.workerDb = new Worker(path.join(__dirname, './workerDB.ts'))
+
+        this.workerDb.on('message', (mailings) => {
+            console.log(mailings)
+            mailings.forEach(mailing => {
+                this.run({botId: mailing.bot_id, mailingId: mailing.id})
+            })
+        });
     }
 
     private getInactiveWorkerId(): number {
@@ -60,34 +69,23 @@ class WorkerPool<N> {
                 this.activeBots.splice(this.activeBots.indexOf(botId), 1)
             }
             console.log('thread is already free ' + workerId)
-            if (!this.queue.length) {
-                return null;
+            if (!this.queue.length || this.queue.length < this.maxQueueLength) {
+                this.workerDb.postMessage(this.activeBots);
             }
-            let counter = 0
+
             let itemQueue = this.queue.shift()
-            while (itemQueue !== undefined && counter < this.queue.length) {
-                if (!this.checkActiveBots(itemQueue.data.botId)) {
-                    this.runWorker(workerId, itemQueue)
-                    break
-                } else {
-                    this.queue.push(itemQueue)
-                    itemQueue = this.queue.shift()
-                    counter++
-                }
-            }
+
+            if (itemQueue !== undefined)
+                this.runWorker(workerId, itemQueue)
+
         }
 
-        if (!this.checkActiveBots(queueItem.data.botId)) {
-            worker.once('message', messageCallback);
-            worker.once('error', errorCallback);
+        worker.once('message', messageCallback);
+        worker.once('error', errorCallback);
 
-            worker.postMessage(queueItem.data);
+        worker.postMessage(queueItem.data);
 
-            this.activeBots.push(queueItem.data.botId)
-
-        } else {
-            this.queue.push(queueItem)
-        }
+        this.activeBots.push(queueItem.data.botId)
 
 
     }
@@ -110,7 +108,8 @@ class WorkerPool<N> {
         };
 
         if (availableWorkerId === -1 || this.checkActiveBots(queueItem.data.botId)) {
-            this.queue.push(queueItem);
+            if (!this.checkActiveBots(queueItem.data.botId))
+                this.queue.push(queueItem);
             console.log('Mailing is in queue! ' + queueItem.data)
             return 'The mailing has been added to the queue'
         }

@@ -12,7 +12,7 @@ export default class Chat extends BaseModel {
   public chatId: string
 
   @column.dateTime({
-    serialize: (value) => value.toFormat('dd.mm.yyyy HH:mm')
+    serialize: (value) => value.toFormat('dd.LL.yyyy HH:mm')
   })
   public sentAt: DateTime | null
 

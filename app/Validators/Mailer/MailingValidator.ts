@@ -39,7 +39,7 @@ export default class MailingValidator {
       rules.maxLength(255)
     ]),
 
-    startAt: schema.date({  format: 'dd.mm.yyyy HH:mm:ss'}, [
+    startAt: schema.date({  format: 'dd.LL.yyyy HH:mm:ss'}, [
       rules.required(),
     ]),
 
