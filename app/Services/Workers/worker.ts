@@ -5,16 +5,7 @@ const {createConnection, executeQuery}  = require('./dbHelpers')
 console.log('worker started')
 
 if (isMainThread) {
-  throw new Error('Its not a worker');
-}
-
-
-function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function loop() {
-  await delay(6000)
+  throw new Error('Its not a worker')
 }
 
 const getMailingQuery = "SELECT * FROM `mailings` WHERE `status_id` = ?, `id` = ? LIMIT 1"
@@ -23,7 +14,13 @@ const endMailingQuery = "UPDATE `mailings` SET `status_id` = ?, `end_at` = ?  WH
 const getChatQuery = "SELECT * FROM `chats` WHERE `sent_at` IS NULL AND `mailing_id` = ? LIMIT 1"
 const updateChatQuery = "UPDATE `chats` SET `sent_at`= ? WHERE `id`=?"
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
+async function loop() {
+  await delay(6000)
+}
 
 parentPort.on('message', async (data: {botId: number, mailingId: number}) => {
   console.log('START mailing # ' + data.mailingId)
@@ -55,5 +52,4 @@ parentPort.on('message', async (data: {botId: number, mailingId: number}) => {
   parentPort.postMessage({botId: data.botId})
   console.log('END of mailing # ' + data.mailingId)
 
-});
-
+})
