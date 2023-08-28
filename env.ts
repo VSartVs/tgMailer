@@ -33,4 +33,5 @@ export default Env.rules({
   VITE_CURRENT_API_VERSION: Env.schema.string(),
   NUMBER_OF_THREADS: Env.schema.number(),
   QUEUE_SIZE: Env.schema.number(),
+  PINO_LOG_LEVEL: Env.schema.string(),
 })

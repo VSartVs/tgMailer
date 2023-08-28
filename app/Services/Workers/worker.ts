@@ -1,8 +1,7 @@
 const {isMainThread, parentPort} = require('worker_threads')
 const moment = require('moment')
-const {createConnection, executeQuery}  = require('./dbHelpers')
+import DBHelper from './dbHelper'
 
-console.log('worker started')
 
 if (isMainThread) {
   throw new Error('Its not a worker')
@@ -25,31 +24,28 @@ async function loop() {
 parentPort.on('message', async (data: {botId: number, mailingId: number}) => {
   console.log('START mailing # ' + data.mailingId)
 
-  const connection = createConnection()
+  let tmp = await DBHelper.executeQuery(startMailingQuery, [2, moment().format(), data.mailingId])
 
-  await executeQuery(connection, startMailingQuery, [2, moment().format(), data.mailingId])
+  //let mailing = await DBHelper.executeQuery(getMailingQuery, [1, data.mailingId])
 
-  //let mailing = await executeQuery(connection, getMailingQuery, [1, data.mailingId])
-
-  let chat = await executeQuery(connection, getChatQuery, [data.mailingId])
+  let chat = await DBHelper.executeQuery(getChatQuery, [data.mailingId])
 
 
   while (chat[0] !== undefined) {
     await loop().then(async () => {
-      /*
-      * TODO: REQUEST TO API TELEGRAM
-      *  */
-      await executeQuery(connection, updateChatQuery, [moment().format(), chat[0].id])
+
+      await DBHelper.executeQuery(updateChatQuery, [moment().format(), chat[0].id])
 
     })
-    chat = await executeQuery(connection, getChatQuery, [data.mailingId])
+
+    chat = await DBHelper.executeQuery(getChatQuery, [data.mailingId])
   }
 
-  await executeQuery(connection, endMailingQuery, [3, moment().format(), data.mailingId])
+  await DBHelper.executeQuery(endMailingQuery, [3, moment().format(), data.mailingId])
 
-  connection.end()
 
   parentPort.postMessage({botId: data.botId})
+  await DBHelper.closeConnection()
   console.log('END of mailing # ' + data.mailingId)
 
 })
