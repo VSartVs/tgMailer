@@ -3,15 +3,13 @@ import Chat from 'App/Models/Chat'
 import Mailing from 'App/Models/Mailing'
 import Bot from 'App/Models/Bot'
 import WorkerPool from 'App/Services/Workers/workerPool'
-import moment from "moment";
-import * as console from "console";
+import moment from 'moment'
 
 export class MailingService implements MailingServiceContract {
 
     data: object
 
-    constructor() {
-    }
+    constructor() {}
 
     public async saveData(data: object) {
         this.data = data
@@ -25,6 +23,8 @@ export class MailingService implements MailingServiceContract {
         if (moment(moment(requiredStartAtMomentFormat)).isSameOrBefore(momentFormat)){
             return WorkerPool.run({botId: botId, mailingId: mailing.id})
         }
+
+        WorkerPool.updateDBWorkerTimer(requiredStartAtMomentFormat)
         return 'The mailing has been added to the queue'
     }
 

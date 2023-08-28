@@ -1,4 +1,4 @@
-import {Worker} from 'worker_threads'
+import {Worker } from 'worker_threads'
 import path from 'path'
 import Env from '@ioc:Adonis/Core/Env'
 
@@ -27,6 +27,7 @@ class WorkerPool<N> {
         this.workerDb = new Worker(path.join(__dirname, './workerDB.ts'))
 
         this.workerDb.on('message', (mailings) => {
+            console.log('on message from dbWorker')
             console.log(mailings)
             mailings.forEach(mailing => {
                 this.run({botId: mailing.bot_id, mailingId: mailing.id})
@@ -70,7 +71,7 @@ class WorkerPool<N> {
             }
             console.log('thread is already free ' + workerId)
             if (!this.queue.length || this.queue.length < this.maxQueueLength) {
-                this.workerDb.postMessage(this.activeBots);
+                this.workerDb.postMessage({activeBotsIds: this.activeBots, date: null});
             }
 
             let itemQueue = this.queue.shift()
@@ -124,6 +125,11 @@ class WorkerPool<N> {
     private checkActiveBots(botId: number) {
         console.log('active Bots ', this.activeBots)
         return this.activeBots.includes(botId)
+    }
+
+    public updateDBWorkerTimer(date: string){
+        this.workerDb?.postMessage({activeBotsIds: [], date: date})
+
     }
 
 }

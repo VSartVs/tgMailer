@@ -50,6 +50,7 @@ parentPort.on('message', async (data: {botId: number, mailingId: number}) => {
 
   await executeQuery(connection, endMailingQuery, [3, moment().format(), data.mailingId])
 
+  connection.end()
 
   parentPort.postMessage({botId: data.botId})
   console.log('END of mailing # ' + data.mailingId)
