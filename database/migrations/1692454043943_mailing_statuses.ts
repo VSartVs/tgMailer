@@ -29,6 +29,14 @@ export default class extends BaseSchema {
         {
           id : MailingStatuses.COMPLETED,
           title: 'Завершена'
+        },
+        {
+          id : MailingStatuses.FAILED,
+          title: 'Ошибка'
+        },
+        {
+          id : MailingStatuses.CANCELED,
+          title: 'Отменена'
         }
       ])
     })

@@ -16,6 +16,9 @@ export default class Chat extends BaseModel {
   })
   public sentAt: DateTime | null
 
+  @column()
+  public mailingVersion: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
