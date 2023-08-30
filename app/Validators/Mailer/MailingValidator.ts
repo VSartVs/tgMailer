@@ -56,9 +56,10 @@ export default class MailingValidator {
       rules.required(),
     ]).members(schema.string()),
 
-    inlineKeyboard: schema.object.nullable().anyMembers(),
-
-    replyKeyboard: schema.object.nullable().anyMembers(),
+    // inlineKeyboard: schema.object.nullable().anyMembers(),
+    inlineKeyboard: schema.array.nullable().anyMembers(),
+    //replyKeyboard: schema.object.nullable().anyMembers(),
+    replyKeyboard:  schema.array.nullable().anyMembers(),
 
   })
 

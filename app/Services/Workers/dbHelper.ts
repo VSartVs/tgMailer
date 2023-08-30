@@ -63,9 +63,9 @@ class DbHelper {
         this.connection.end()
     }
 
-    public async addLog(message: string, type: string)
+    public async addLog(message: string, type: string, addInAnyCase = false)
     {
-        if(process.env.NODE_ENV === 'development')
+        if(process.env.NODE_ENV !== 'production' || addInAnyCase)
             await this.executeQuery("INSERT INTO `logs`(`message`, `type`) VALUES (?, ?)", [message, type])
     }
 }

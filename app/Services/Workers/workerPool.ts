@@ -71,7 +71,7 @@ class WorkerPool<N> {
             }
 
             if (!this.queue.length || this.queue.length < this.maxQueueLength) {
-                if(Env.get('NODE_ENV') === 'development')
+                if(Env.get('NODE_ENV') !== 'production')
                     Log.create({message: 'Запрос к бд-потоку для получения новых рассылок, т.к размер очереди ' + this.queue.length, type: LogTypes.INFO })
                 this.workerDb?.postMessage({activeBotsIds: this.activeBots, date: null})
             }
@@ -88,7 +88,7 @@ class WorkerPool<N> {
 
         this.activeBots.push(queueItem.data.botId)
 
-        if(Env.get('NODE_ENV') === 'development')
+        if(Env.get('NODE_ENV') !== 'production')
             Log.create({message: 'Поток №' + workerId + ' взял в обработку рассылку ' + JSON.stringify(queueItem.data), type: LogTypes.INFO })
     }
 
@@ -110,10 +110,10 @@ class WorkerPool<N> {
         if (availableWorkerId === -1 || this.checkActiveBots(queueItem.data.botId)) {
             if (!this.checkActiveBots(queueItem.data.botId)) {
                 this.queue.push(queueItem)
-                if (Env.get('NODE_ENV') === 'development')
+                if (Env.get('NODE_ENV') !== 'production')
                     Log.create({message: 'Рассылка '+JSON.stringify(data) + ' добавлена в очередь, т.к выполняются рассылки ботов '+this.activeBots, type: LogTypes.INFO})
             }
-            if (Env.get('NODE_ENV') === 'development')
+            if (Env.get('NODE_ENV') !== 'production')
                 Log.create({message: 'Рассылка '+JSON.stringify(data) + ' не добавлена в очередь, т.к выполняются рассылки ботов '+this.activeBots, type: LogTypes.WARNING})
             return 'The mailing has been added to the queue'
         }

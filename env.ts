@@ -34,4 +34,5 @@ export default Env.rules({
   NUMBER_OF_THREADS: Env.schema.number(),
   QUEUE_SIZE: Env.schema.number(),
   PINO_LOG_LEVEL: Env.schema.string(),
+  DISABLE_NOTIFICATION_TIME: Env.schema.string(),
 })
