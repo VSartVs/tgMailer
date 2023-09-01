@@ -35,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'settings',
         name: 'Настройки',
         component: () => import('../pages/Settings.vue'),
+      },
+      {
+        path: 'logs',
+        name: 'Логи',
+        component: () => import('../pages/Logs.vue'),
       }
     ]
   },
@@ -57,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/admin'),
   routes,
   scrollBehavior() {
     return {top: 0}

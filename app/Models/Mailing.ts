@@ -8,7 +8,8 @@ import {
   belongsTo,
   hasMany,
   HasMany,
-  BaseModel
+  BaseModel,
+  scope
 } from '@ioc:Adonis/Lucid/Orm'
 import Bot from 'App/Models/Bot'
 import MailingStatus from 'App/Models/MailingStatus'
@@ -16,6 +17,26 @@ import Chat from 'App/Models/Chat'
 
 
 export default class Mailing extends BaseModel {
+
+  public serializeExtras() {
+    return {
+      countChats: this.$extras.countChats,
+      countCompletedChats: this.$extras.countCompletedChats,
+    }
+  }
+
+  public static countChats = scope((query, action: string | null, fieldName: string) => {
+   if(action !== null) {
+     query.withCount('chats', (query) => {
+       query.where('sentAt', action, null).as(fieldName)
+     })
+   }else{
+     query.withCount('chats', (query) => {
+       query.as(fieldName)
+     })
+   }
+  })
+
   @column({isPrimary: true})
   public id: number
 
@@ -46,16 +67,16 @@ export default class Mailing extends BaseModel {
   @column()
   public replyKeyboard: string | null
 
-  @column()
+  @column({serializeAs: null })
   public botId: number
 
   @column()
   public statusId: number
 
-  @column.dateTime({autoCreate: true})
+  @column.dateTime({autoCreate: true, serializeAs: null })
   public createdAt: DateTime
 
-  @column.dateTime({autoCreate: true, autoUpdate: true})
+  @column.dateTime({autoCreate: true, autoUpdate: true, serializeAs: null })
   public updatedAt: DateTime
 
 
@@ -68,22 +89,12 @@ export default class Mailing extends BaseModel {
       mailing.replyKeyboard = JSON.stringify(mailing.replyKeyboard)
   }
 
-  @afterFetch()
-  @afterFind()
-  public static async readJsonFields(mailing: Mailing) {
-    mailing.photos = JSON.parse(mailing.photos)
-    if (mailing.inlineKeyboard !== null)
-      mailing.inlineKeyboard = JSON.parse(mailing.inlineKeyboard)
-
-    if (mailing.replyKeyboard !== null)
-      mailing.replyKeyboard = JSON.parse(mailing.replyKeyboard)
-
-  }
-
   @belongsTo(() => Bot)
   public bot: BelongsTo<typeof Bot>
 
-  @belongsTo(() => MailingStatus)
+  @belongsTo(() => MailingStatus, {
+    foreignKey: 'statusId',
+  })
   public status: BelongsTo<typeof MailingStatus>
 
   @hasMany(() => Chat)

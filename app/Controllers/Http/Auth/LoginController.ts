@@ -18,8 +18,8 @@ export default class LoginController
   }
 
   public async refresh ({auth, request, response}: HttpContextContract) {
-    const refreshToken = request.input("refresh_token")
-    const token = await auth.use("jwt").loginViaRefreshToken(refreshToken)
+    const refreshToken = request.input('refresh_token')
+    const token = await auth.use('jwt').loginViaRefreshToken(refreshToken)
     return response.json({
       accessToken: token.accessToken,
       refreshToken: token.refreshToken

@@ -31,7 +31,7 @@ export default class CustomNotification {
             buttonsStyling: false
         })
 
-        swalWithBootstrapButtons.fire({
+        return swalWithBootstrapButtons.fire({
             title: title,
             text: text,
             icon: icon,
@@ -39,23 +39,22 @@ export default class CustomNotification {
             confirmButtonText: 'Да, удалить!',
             cancelButtonText: 'Нет, отменить!',
             reverseButtons: true
-        }).then((result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-                swalWithBootstrapButtons.fire(
+                await swalWithBootstrapButtons.fire(
                     'Успех!',
                     'Запись успешно удалена',
                     'success'
                 )
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+                await swalWithBootstrapButtons.fire(
                     'Отмена!',
                     'Удаление отменено',
                     'error'
                 )
             }
+            return Promise.resolve(result)
         })
     }
 }

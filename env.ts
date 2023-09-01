@@ -30,6 +30,7 @@ export default Env.rules({
   MYSQL_PASSWORD: Env.schema.string.optional(),
   MYSQL_DB_NAME: Env.schema.string(),
   VITE_BASE_API_URL: Env.schema.string(),
+  VITE_BASE_URL: Env.schema.string(),
   VITE_CURRENT_API_VERSION: Env.schema.string(),
   NUMBER_OF_THREADS: Env.schema.number(),
   QUEUE_SIZE: Env.schema.number(),

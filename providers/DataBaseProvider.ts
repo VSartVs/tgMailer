@@ -1,6 +1,5 @@
-import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import {CamelCaseNamingStrategy} from "App/Strategies/CamelCaseNamingStrategy";
-
+import type {ApplicationContract} from '@ioc:Adonis/Core/Application'
+import {CamelCaseNamingStrategy} from 'App/Strategies/CamelCaseNamingStrategy'
 /*
 |--------------------------------------------------------------------------
 | Provider
@@ -29,7 +28,7 @@ export default class DataBaseProvider {
 
   public async boot() {
     // All bindings are ready, feel free to use them
-    const { BaseModel } = await import('@ioc:Adonis/Lucid/Orm')
+    const {BaseModel} = await import('@ioc:Adonis/Lucid/Orm')
     BaseModel.namingStrategy = new CamelCaseNamingStrategy()
   }
 

@@ -1,21 +1,70 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
 th.col {
   display: block;
   position: relative;
 }
-th[data-sorting-direction="asc"] svg, th[data-sorting-direction="desc"] svg {
+
+th[data-sorting-direction="asc"] svg,
+th[data-sorting-direction="desc"] svg {
   display: none;
 }
 
-th.sorted[data-sorting-direction="asc"] svg, th.sorted[data-sorting-direction="desc"] svg {
+th.sorted[data-sorting-direction="asc"] svg,
+th.sorted[data-sorting-direction="desc"] svg {
   display: flex;
   align-self: flex-end;
   flex: 0 0 auto;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
-.form-floating > .form-control:focus ~ label::after,
-.form-floating > .form-control:not(:placeholder-shown) ~ label::after,
-.form-floating > .form-control-plaintext ~ label::after,
-.form-floating > .form-select ~ label::after {
-  background-color: transparent;
+.pagination {
+  justify-content: flex-end;
+
+  & .page-item:not(.disabled) .page-link {
+    cursor: pointer;
+  }
+}
+
+.form-floating {
+  & > .form-control:focus ~ label::after,
+  & > .form-control:not(:placeholder-shown) ~ label::after,
+  & .form-control-plaintext ~ label::after,
+  & .form-select ~ label::after {
+    background-color: transparent;
+  }
+}
+
+.custom-floating {
+  margin-bottom: 1rem;
+
+  & .select-count-row {
+    width: 130px !important;
+    line-height: 2rem !important;
+    background-position-y: 1rem !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    color: rgb(163 168 176) !important;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    cursor: pointer;
+  }
+
+  & .form-label {
+    top: -0.5rem !important;
+  }
+
+  & .form-label-duration {
+    top: -1rem !important;
+    z-index: 99;
+    padding-left: 50px;
+    font-weight: 700;
+    font-size: small;
+
+    &::-webkit-input-placeholder, &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder {
+      color: rgb(163 168 176) !important;
+    }
+  }
 }

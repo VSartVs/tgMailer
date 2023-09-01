@@ -8,7 +8,7 @@ const setup = () => {
     (config) => {
       const accessToken = store.tokens.accessToken
       if (accessToken)
-        config.headers['x-access-token'] = accessToken
+        config.headers['Authorization'] = 'Bearer '+accessToken
       return config
     },
     (error) => {

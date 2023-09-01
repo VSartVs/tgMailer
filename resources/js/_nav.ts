@@ -10,5 +10,11 @@ export default [
       name: 'TG Bots',
       to: '/bots',
       icon: 'cibTelegramPlane',
+    },
+    {
+        component: 'CNavItem',
+        name: 'Логи',
+        to: '/logs',
+        icon: 'cilInfo',
     }
   ]

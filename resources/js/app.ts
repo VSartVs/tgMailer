@@ -13,6 +13,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import setup from './services/auth/setup'
+import Paginate from 'vuejs-paginate-next'
 
 export const myHasOwnProperty = Object.prototype.hasOwnProperty
 
@@ -29,5 +30,6 @@ app.component('CIcon', CIcon)
 app.component('VueDatePicker', VueDatePicker)
 app.use(VueSweetalert2)
 app.use(VueAxios, axios)
+app.component('Paginate',Paginate)
 
 app.mount('#app')
