@@ -20,7 +20,9 @@ export default class CustomNotification {
 
     static actionModal = (icon = 'warning',
                           title = 'Вы действительно хотите удалить запись?',
-                          text = 'Отменить действие будет невозможно.'
+                          text = 'Отменить действие будет невозможно.',
+                          successText = 'Запись успешно удалена',
+                          errorText = 'Удаление отменено'
     ) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
@@ -36,21 +38,21 @@ export default class CustomNotification {
             text: text,
             icon: icon,
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить!',
+            confirmButtonText: 'Да!',
             cancelButtonText: 'Нет, отменить!',
             reverseButtons: true
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await swalWithBootstrapButtons.fire(
                     'Успех!',
-                    'Запись успешно удалена',
+                    successText,
                     'success'
                 )
             }
             else if (result.dismiss === Swal.DismissReason.cancel) {
                 await swalWithBootstrapButtons.fire(
                     'Отмена!',
-                    'Удаление отменено',
+                    errorText,
                     'error'
                 )
             }

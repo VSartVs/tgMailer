@@ -14,8 +14,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import setup from './services/auth/setup'
 import Paginate from 'vuejs-paginate-next'
+import vue3TsJsoneditor from 'vue3-ts-jsoneditor'
 
-export const myHasOwnProperty = Object.prototype.hasOwnProperty
+//export const myHasOwnProperty = Object.prototype.hasOwnProperty
 
 const pinia = createPinia()
 const app = createApp(App)
@@ -30,6 +31,7 @@ app.component('CIcon', CIcon)
 app.component('VueDatePicker', VueDatePicker)
 app.use(VueSweetalert2)
 app.use(VueAxios, axios)
+app.use(vue3TsJsoneditor)
 app.component('Paginate',Paginate)
 
 app.mount('#app')

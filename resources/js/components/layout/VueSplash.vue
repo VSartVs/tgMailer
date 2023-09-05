@@ -114,6 +114,7 @@ $splash-color: var(--splash-color);
   }
 
   &--absolute {
+    z-index: 100;
     position: absolute;
     top: 50%;
     left: 50%;

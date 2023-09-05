@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import Pagination from '../components/tables/Pagination.vue'
 import HeaderCell from '../components/tables/HeaderCell.vue'
-import {onMounted} from 'vue'
+import {onMounted, onUnmounted} from 'vue'
 import {storeToRefs} from 'pinia'
 import {useCrudStore} from '../stores/crudStore'
 
@@ -11,6 +11,10 @@ const {data, isLoading, searchParams} = storeToRefs(crudStore)
 
 onMounted(() => {
   crudStore.getData()
+})
+
+onUnmounted(() => {
+  crudStore.setDefaultStore()
 })
 </script>
 

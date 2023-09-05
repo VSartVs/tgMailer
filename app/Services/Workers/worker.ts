@@ -42,13 +42,14 @@ parentPort.on('message', async (data: { botId: number, mailingId: number }) => {
                 chat_id: chat[0].chat_id,
                 disable_notification: disableNotification,
             }
-            if (mailing[0].photos.length > 1) {
+            let photos = JSON.parse(mailing[0].photos)
+            if (photos.length > 1) {
                 tgAPIMethod = 'sendMediaGroup'
                 let tmpImagesArr = []
-                for (let i = 0; i < mailing[0].photos.length; i++) {
+                for (let i = 0; i < photos.length; i++) {
                     let imageItem = {
                         type: 'photo',
-                        media: mailing[0].photos[i]
+                        media: photos[i]
                     }
                     if (i === 0)
                         imageItem.caption = mailing[0].message
@@ -58,12 +59,12 @@ parentPort.on('message', async (data: { botId: number, mailingId: number }) => {
                 data.media = tmpImagesArr
             } else {
                 data.caption = mailing[0].message
-                data.photo = mailing[0].photos[0]
+                data.photo = photos[0]
                 let replyMarkup = {}
                 if (mailing[0].inline_keyboard !== null)
-                    replyMarkup.inline_keyboard = mailing[0].inline_keyboard
+                    replyMarkup.inline_keyboard = JSON.parse(mailing[0].inline_keyboard)
                 if (mailing[0].reply_keyboard !== null)
-                    replyMarkup.keyboard = mailing[0].reply_keyboard
+                    replyMarkup.keyboard = JSON.parse(mailing[0].reply_keyboard)
                 data.reply_markup = replyMarkup
             }
 

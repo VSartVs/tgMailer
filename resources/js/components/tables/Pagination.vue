@@ -15,7 +15,7 @@ const getPerPageCount = computed({
   get() {
     return perPageCount.value
   },
-  set(val: Number) {
+  set(val: string) {
     perPageCount.value = val
     crudStore.getData()
   }

@@ -31,4 +31,4 @@ Route.group(() => {
 
 Route.get('*', async ({ view }) => {
   return view.render('app')
-})
+}).where('*', '')
