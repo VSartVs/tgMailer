@@ -26,6 +26,8 @@ export const useCrudStore = defineStore('crud', () => {
         currentPage.value = 1
         perPageCount.value = "10"
         searchParams.value = {}
+        item.value = null
+        errors.value = []
     }
 
     const changeSort = (property) => {
@@ -89,7 +91,7 @@ export const useCrudStore = defineStore('crud', () => {
     }
 
     const updateWithoutFiles = async (route: string, data = {}) => {
-
+        errors.value = []
         return await api.put('admin/' + route, data)
             .then(async (response) => {
                // await getItem(route)

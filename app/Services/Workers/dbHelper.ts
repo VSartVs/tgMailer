@@ -1,4 +1,5 @@
 import process from "process"
+import moment from "moment";
 const mysql = require('mysql2')
 const logger = require('../../../logger')
 
@@ -66,7 +67,7 @@ class DbHelper {
     public async addLog(message: string, type: string, addInAnyCase = false)
     {
         if(process.env.NODE_ENV !== 'production' || addInAnyCase)
-            await this.executeQuery("INSERT INTO `logs`(`message`, `type`) VALUES (?, ?)", [message, type])
+            await this.executeQuery("INSERT INTO `logs`(`message`, `type`, `created_at`) VALUES (?, ?, ?)", [message, type, moment().format('YYYY-MM-DDTHH:mm:ss')])
     }
 }
 

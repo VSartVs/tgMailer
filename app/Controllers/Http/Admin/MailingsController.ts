@@ -5,9 +5,9 @@ import Drive from '@ioc:Adonis/Core/Drive'
 import Env from '@ioc:Adonis/Core/Env'
 import {inject} from '@adonisjs/fold'
 import {MailingService} from 'App/Services/MailingService'
-import moment, {now} from 'moment/moment'
+import moment from 'moment/moment'
 import MultipleDestroyMailingValidator from 'App/Validators/Mailings/MultipleDestroyMailingValidator'
-import MailingStatuses from "App/Enums/MailingStatuses";
+import MailingStatuses from 'App/Enums/MailingStatuses'
 
 export default class MailingsController {
 
@@ -114,9 +114,13 @@ export default class MailingsController {
             .where('botId', '=', data.botId)
             .where('endAt', '<=', moment(data.dateToDelete.toISO({ includeOffset: false, suppressMilliseconds: true })).format('YYYY-MM-DDTHH:mm:ss'))
 
-        mailings.forEach(mailing => {
+        mailings.forEach(async (mailing) => {
             mailing.delete()
         })
+
+       /* await Log.query()
+            .where('createdAt', '<=', moment(data.dateToDelete.toISO({ includeOffset: false, suppressMilliseconds: true })).format('YYYY-MM-DDTHH:mm:ss'))
+            .delete()*/
 
         return response.status(200)
 
@@ -128,7 +132,7 @@ export default class MailingsController {
         const mailing = await Mailing.query().where('id', params.id).first()
 
         mailing.delete()
-        // await Log.query().where('message', 'LIKE', '%"mailingId":' + params.id + '%').delete()
+
         return response.status(200)
 
     }

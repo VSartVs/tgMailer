@@ -4,7 +4,7 @@ import Mailing from 'App/Models/Mailing'
 
 export default class Bot extends BaseModel {
 
-  public serializeExtras() {
+   public serializeExtras() {
     return {
       countQueueMailings: this.$extras.countQueueMailings,
       countActiveMailings: this.$extras.countActiveMailings,

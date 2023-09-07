@@ -1,314 +1,91 @@
+<script setup lang='ts'>
+import {onMounted, ref,} from 'vue'
+import {useCrudStore} from '../stores/crudStore'
+import {storeToRefs} from 'pinia'
+import WidgetStats from "../components/statistics/WidgetStats.vue"
+
+const crudStore = useCrudStore()
+const {item} = storeToRefs(crudStore)
+
+const botsData = ref({})
+const mailingsData = ref({})
+const completedMailingsData = ref({})
+const failedMailingsData = ref({})
+
+onMounted(async () => {
+  botsData.value = await crudStore.getItem('statistics').then(async () => {
+    return Promise.resolve({
+      label: Object.keys(item.value.botStatistics),
+      value_label: "Количество ботов",
+      value: Object.values(item.value.botStatistics)
+    })
+  })
+  mailingsData.value = await crudStore.getItem('statistics').then(async () => {
+    return Promise.resolve({
+      label: Object.keys(item.value.mailingsStatistics),
+      value_label: "Количество рассылок",
+      value: Object.values(item.value.mailingsStatistics)
+    })
+  })
+  completedMailingsData.value = await crudStore.getItem('statistics').then(async () => {
+    return Promise.resolve({
+      label: Object.keys(item.value.completedMailingsStatistics),
+      value_label: "Количество выполненных рассылок",
+      value: Object.values(item.value.completedMailingsStatistics)
+    })
+  })
+  failedMailingsData.value = await crudStore.getItem('statistics').then(async () => {
+    return Promise.resolve({
+      label: Object.keys(item.value.failedMailingsStatistics),
+      value_label: "Количество неудачных рассылок",
+      value: Object.values(item.value.failedMailingsStatistics)
+    })
+  })
+})
+
+</script>
+
 <template>
   <CRow>
     <CCol :xs="3">
-      <CWidgetStatsA class="mb-3" color="primary">
-        <template #value
-        >26K
-          <span class="fs-6 fw-normal">
-          (-12.4% <CIcon icon="cil-arrow-bottom" />)
-        </span>
-        </template>
-        <template #title>Users</template>
-        <template #chart>
-          <CChart
-            type="line"
-            class="mt-3 mx-3"
-            style="height: 70px"
-            :data="{
-            labels: [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-            ],
-            datasets: [
-              {
-                label: 'My First dataset',
-                backgroundColor: 'transparent',
-                borderColor: 'rgba(255,255,255,.55)',
-                pointBackgroundColor: '#321fdb',
-                data: [65, 59, 84, 84, 51, 55, 40],
-              },
-            ],
-          }"
-            :options="{
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                  drawBorder: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-              y: {
-                min: 30,
-                max: 89,
-                display: false,
-                grid: {
-                  display: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-            },
-            elements: {
-              line: {
-                borderWidth: 1,
-                tension: 0.4,
-              },
-              point: {
-                radius: 4,
-                hitRadius: 10,
-                hoverRadius: 4,
-              },
-            },
-          }"
-          />
-        </template>
-      </CWidgetStatsA>
+      <WidgetStats
+          color="primary"
+          title="Боты"
+          type-options="options-1"
+          type-chart="line"
+          :chartsData="botsData"
+          :counter="item ? item.botsCounter : 0"
+      />
     </CCol>
     <CCol :xs="3">
-      <CWidgetStatsA class="mb-3" color="info">
-        <template #value
-        >$6.200
-          <span class="fs-6 fw-normal">
-          (40.9% <CIcon icon="cil-arrow-top" />)
-        </span>
-        </template>
-        <template #title>Income</template>
-        <template #chart>
-          <CChart
-            type="line"
-            class="mt-3 mx-3"
-            style="height: 70px"
-            :data="{
-            labels: [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-            ],
-            datasets: [
-              {
-                label: 'My First dataset',
-                backgroundColor: 'transparent',
-                borderColor: 'rgba(255,255,255,.55)',
-                pointBackgroundColor: '#39f',
-                data: [1, 18, 9, 17, 34, 22, 11],
-              },
-            ],
-          }"
-            :options="{
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                  drawBorder: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-              y: {
-                min: -9,
-                max: 39,
-                display: false,
-                grid: {
-                  display: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-            },
-            elements: {
-              line: {
-                borderWidth: 1,
-              },
-              point: {
-                radius: 4,
-                hitRadius: 10,
-                hoverRadius: 4,
-              },
-            },
-          }"
-          />
-        </template>
-      </CWidgetStatsA>
+      <WidgetStats
+          color="info"
+          title="Рассылки"
+          type-options="options-1"
+          type-chart="line"
+          :chartsData="mailingsData"
+          :counter="item ? item.mailingsCounter : 0"
+      />
     </CCol>
     <CCol :xs="3">
-      <CWidgetStatsA class="mb-3" color="warning">
-        <template #value
-        >2.49%
-          <span class="fs-6 fw-normal">
-          (84.7% <CIcon icon="cil-arrow-top" />)
-        </span>
-        </template>
-        <template #title>Conversion Rate</template>
-        <template #chart>
-          <CChart
-            type="line"
-            class="mt-3"
-            style="height: 70px"
-            :data="{
-            labels: [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-            ],
-            datasets: [
-              {
-                label: 'My First dataset',
-                backgroundColor: 'rgba(255,255,255,.2)',
-                borderColor: 'rgba(255,255,255,.55)',
-                data: [78, 81, 80, 45, 34, 12, 40],
-                fill: true,
-              },
-            ],
-          }"
-            :options="{
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                display: false,
-              },
-              y: {
-                display: false,
-              },
-            },
-            elements: {
-              line: {
-                borderWidth: 2,
-                tension: 0.4,
-              },
-              point: {
-                radius: 0,
-                hitRadius: 10,
-                hoverRadius: 4,
-              },
-            },
-          }"
-          />
-        </template>
-      </CWidgetStatsA>
+      <WidgetStats
+          color="warning"
+          title="Выполненные рассылки"
+          type-options="options-2"
+          type-chart="line"
+          :chartsData="completedMailingsData"
+          :counter="item ? item.completedMailingsCounter :  0"
+      />
     </CCol>
     <CCol :xs="3">
-      <CWidgetStatsA class="mb-3" color="danger">
-        <template #value
-        >44K
-          <span class="fs-6 fw-normal">
-          (-23.6% <CIcon icon="cil-arrow-bottom" />)
-        </span>
-        </template>
-        <template #title>Sessions</template>
-        <template #chart>
-          <CChart
-            type="bar"
-            class="mt-3 mx-3"
-            style="height: 70px"
-            :data="{
-            labels: [
-              'January',
-              'February',
-              'March',
-              'April',
-              'May',
-              'June',
-              'July',
-              'August',
-              'September',
-              'October',
-              'November',
-              'December',
-              'January',
-              'February',
-              'March',
-              'April',
-            ],
-            datasets: [
-              {
-                label: 'My First dataset',
-                backgroundColor: 'rgba(255,255,255,.2)',
-                borderColor: 'rgba(255,255,255,.55)',
-                data: [
-                  78, 81, 80, 45, 34, 12, 40, 85, 65, 23, 12, 98, 34, 84, 67,
-                  82,
-                ],
-                barPercentage: 0.6,
-              },
-            ],
-          }"
-            :options="{
-            maintainAspectRatio: false,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                  drawTicks: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-              y: {
-                grid: {
-                  display: false,
-                  drawBorder: false,
-                  drawTicks: false,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-            },
-          }"
-          />
-        </template>
-      </CWidgetStatsA>
+      <WidgetStats
+          color="danger"
+          title="Неудачные рассылки"
+          type-options="options-3"
+          type-chart="bar"
+          :chartsData="failedMailingsData"
+          :counter="item ? item.failedMailingsCounter :  0"
+      />
     </CCol>
   </CRow>
 </template>
-
-<script lang="ts">
-import {defineComponent} from 'vue';
-
-export default defineComponent({
-  setup() {
-  },
-});
-</script>

@@ -8,12 +8,19 @@ export default class LoginController
 
     const data = await request.validate(LoginValidator)
 
-    const token = await auth.use('jwt').attempt(data.email, data.password)
-
-    return response.json({
-      accessToken: token.accessToken,
-      refreshToken: token.refreshToken
-    })
+    try {
+      const token = await auth.use('jwt').attempt(data.email, data.password)
+      return response.json({
+        accessToken: token.accessToken,
+        refreshToken: token.refreshToken
+      })
+    }catch (e){
+      return response.status(422).json({
+        errors: {
+          password: ['Неверный пароль']
+        }
+      })
+    }
 
   }
 

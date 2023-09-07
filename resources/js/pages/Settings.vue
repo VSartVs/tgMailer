@@ -1,31 +1,35 @@
 <script setup lang="ts">
+import PasswordInput from '../components/inputs/PasswordInput.vue'
+import {storeToRefs} from 'pinia'
+import {onMounted, onUnmounted} from 'vue'
+import {useCrudStore} from '../stores/crudStore'
 
-import PasswordInput from "../components/inputs/PasswordInput.vue";
-import {useAuthStore} from "../stores/authStore";
-import {storeToRefs} from "pinia";
-import {ref} from "vue";
+const crudStore = useCrudStore()
+const {item, errors} = storeToRefs(crudStore)
 
-const authStore = useAuthStore()
-const {errors, validated} = storeToRefs(authStore)
+onMounted(async () => {
+  await crudStore.getItem('settings')
+})
 
-const email = ref('')
-const password = ref('')
+onUnmounted(() => {
+  crudStore.setDefaultStore()
+})
 </script>
 
 <template>
-  <CForm class="row g-3"  novalidate>
+  <CForm class="row g-3"  novalidate v-if="item !== null">
     <div class="mb-3">
-      <CFormInput v-model="email" type="email" id="emailInput"
+      <CFormInput v-model="item.email" type="email" id="emailInput"
                   floatingLabel="Email" placeholder="name@example.com"
-                  :valid="!Object.prototype.hasOwnProperty.call(errors, 'email') && validated"
-                  :invalid="Object.prototype.hasOwnProperty.call(errors, 'email') && validated"
+                  :valid="!Object.prototype.hasOwnProperty.call(errors, 'email') "
+                  :invalid="Object.prototype.hasOwnProperty.call(errors, 'email') "
                   :feedback="Object.prototype.hasOwnProperty.call(errors, 'email') ? errors.email[0] : ''"/>
     </div>
     <div class="mb-3">
-      <password-input  v-model="password" :validated="validated" :errors="errors"/>
+      <password-input  v-model="item.password" :validated="Object.prototype.hasOwnProperty.call(errors, 'password')" :errors="errors"/>
     </div>
     <CCol md="12" class="justify-content-end d-flex">
-      <CButton  color="primary" shape="rounded-pill" type="submit">Обновить</CButton>
+      <CButton  color="primary" shape="rounded-pill" @click="crudStore.updateWithoutFiles('settings', item)">Обновить</CButton>
     </CCol>
   </CForm>
 </template>
