@@ -1,0 +1,175 @@
+{
+  "PasswordInput.css": {
+    "file": "assets/PasswordInput-a7b9a628.css",
+    "src": "PasswordInput.css"
+  },
+  "VueSplash.css": {
+    "file": "assets/VueSplash-d846186a.css",
+    "src": "VueSplash.css"
+  },
+  "_HeaderCell-2834f7a9.js": {
+    "file": "assets/HeaderCell-2834f7a9.js",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "_PasswordInput-cd8b07ac.js": {
+    "css": [
+      "assets/PasswordInput-a7b9a628.css"
+    ],
+    "file": "assets/PasswordInput-cd8b07ac.js",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "_VueSplash-1893e02b.js": {
+    "css": [
+      "assets/VueSplash-d846186a.css"
+    ],
+    "file": "assets/VueSplash-1893e02b.js",
+    "imports": [
+      "resources/js/app.ts"
+    ]
+  },
+  "node_modules/vue3-ts-jsoneditor/dist/full-width-button-handler.js": {
+    "file": "assets/full-width-button-handler-24ded1cf.js",
+    "isDynamicEntry": true,
+    "src": "node_modules/vue3-ts-jsoneditor/dist/full-width-button-handler.js"
+  },
+  "node_modules/vue3-ts-jsoneditor/dist/string-styles.js": {
+    "file": "assets/string-styles-28d24ab6.js",
+    "isDynamicEntry": true,
+    "src": "node_modules/vue3-ts-jsoneditor/dist/string-styles.js"
+  },
+  "node_modules/vue3-ts-jsoneditor/dist/styles-handler.js": {
+    "dynamicImports": [
+      "node_modules/vue3-ts-jsoneditor/dist/string-styles.js",
+      "node_modules/vue3-ts-jsoneditor/dist/string-styles.js"
+    ],
+    "file": "assets/styles-handler-4b00ded5.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "node_modules/vue3-ts-jsoneditor/dist/styles-handler.js"
+  },
+  "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js": {
+    "file": "assets/vanilla-jsoneditor-c2a8183a.js",
+    "isDynamicEntry": true,
+    "src": "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-43277c34.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.ts": {
+    "css": [
+      "assets/app-43277c34.css"
+    ],
+    "dynamicImports": [
+      "resources/js/pages/Dashboard.vue",
+      "resources/js/layouts/PageLayout.vue",
+      "resources/js/pages/TelegramBots.vue",
+      "resources/js/pages/TelegramMailings.vue",
+      "resources/js/pages/Settings.vue",
+      "resources/js/pages/Logs.vue",
+      "resources/js/pages/Login.vue",
+      "resources/js/pages/Page404.vue",
+      "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js",
+      "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js",
+      "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js",
+      "node_modules/vue3-ts-jsoneditor/dist/full-width-button-handler.js",
+      "node_modules/vue3-ts-jsoneditor/dist/styles-handler.js",
+      "node_modules/vue3-ts-jsoneditor/dist/vanilla-jsoneditor.js",
+      "node_modules/vue3-ts-jsoneditor/dist/styles-handler.js"
+    ],
+    "file": "assets/app-4f42dbc1.js",
+    "isEntry": true,
+    "src": "resources/js/app.ts"
+  },
+  "resources/js/layouts/PageLayout.vue": {
+    "file": "assets/PageLayout-804e2389.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_VueSplash-1893e02b.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/layouts/PageLayout.vue"
+  },
+  "resources/js/pages/Dashboard.vue": {
+    "file": "assets/Dashboard-e0c5002e.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Dashboard.vue"
+  },
+  "resources/js/pages/Login.vue": {
+    "file": "assets/Login-09caf671.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_PasswordInput-cd8b07ac.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Login.vue"
+  },
+  "resources/js/pages/Logs.vue": {
+    "file": "assets/Logs-7a3730e5.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_HeaderCell-2834f7a9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Logs.vue"
+  },
+  "resources/js/pages/Page404.vue": {
+    "file": "assets/Page404-706ca1c5.js",
+    "imports": [
+      "resources/js/app.ts"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Page404.vue"
+  },
+  "resources/js/pages/Settings.vue": {
+    "file": "assets/Settings-a024f513.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_PasswordInput-cd8b07ac.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/Settings.vue"
+  },
+  "resources/js/pages/TelegramBots.css": {
+    "file": "assets/TelegramBots-ba0894fb.css",
+    "src": "resources/js/pages/TelegramBots.css"
+  },
+  "resources/js/pages/TelegramBots.vue": {
+    "css": [
+      "assets/TelegramBots-ba0894fb.css"
+    ],
+    "file": "assets/TelegramBots-ac83e42e.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_HeaderCell-2834f7a9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/TelegramBots.vue"
+  },
+  "resources/js/pages/TelegramMailings.css": {
+    "file": "assets/TelegramMailings-da2891c8.css",
+    "src": "resources/js/pages/TelegramMailings.css"
+  },
+  "resources/js/pages/TelegramMailings.vue": {
+    "css": [
+      "assets/TelegramMailings-da2891c8.css"
+    ],
+    "file": "assets/TelegramMailings-0d591b64.js",
+    "imports": [
+      "resources/js/app.ts",
+      "_VueSplash-1893e02b.js",
+      "_HeaderCell-2834f7a9.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/pages/TelegramMailings.vue"
+  }
+}

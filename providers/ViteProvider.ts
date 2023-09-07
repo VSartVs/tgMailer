@@ -1,37 +1,44 @@
-import { ApplicationContract } from '@ioc:Adonis/Core/Application';
-import Env from '@ioc:Adonis/Core/Env';
-import { readFileSync } from 'fs';
+import { ApplicationContract } from '@ioc:Adonis/Core/Application'
+import MissingEntryPointException from '../helpers/MissingEntryPoint'
+import ViteAssetManager from '../helpers/ViteAssetMenager'
 
 export default class ViteProvider {
-  public static needsApplication = true;
+    public static needsApplication = true
 
-  constructor(protected app: ApplicationContract) {}
+    constructor(protected app: ApplicationContract) {}
 
-  public async boot() {
-    const View = this.app.container.resolveBinding('Adonis/Core/View');
+    public register() {
+        // Register your own bindings
+        this.app.container.singleton('AdonisJS/Vite', () => new ViteAssetManager(this.app))
+    }
 
-    const served = () => {
-      const port = Env.get('VITE_PORT', 3000);
-      return `
-      <script type="module" src="http://localhost:${port}/@vite/client"></script>
-      <script type="module" src="http://localhost:${port}/resources/js/app.ts" ></script>
-    `;
-    };
+    public async boot() {
+        // IoC container is ready
+        const View = this.app.container.resolveBinding('Adonis/Core/View')
+        const assetManager = this.app.container.resolveBinding('AdonisJS/Vite')
+        View.global('viteAssetsManager', assetManager)
 
-    const built = () => {
-      const data = readFileSync('./public/build/manifest.json').toString();
-      const manifest = JSON.parse(data);
-      return `<script type="module" src="/build/${manifest['resources/js/app.ts']['file']}"></script>`;
-    };
-    View.registerTag({
-      tagName: 'vite',
-      seekable: false,
-      block: false,
-      compile(_, buffer) {
-        buffer.outputRaw(
-          Env.get('NODE_ENV') === 'development' ? served() : built(),
-        );
-      },
-    });
-  }
+        View.registerTag({
+            tagName: 'vite',
+            seekable: true,
+            block: false,
+            compile(parser, buffer, token) {
+                if (!token.properties.jsArg.trim()) {
+                    throw new MissingEntryPointException()
+                }
+                const parsed = parser.utils.transformAst(
+                    parser.utils.generateAST(token.properties.jsArg, token.loc, token.filename),
+                    token.filename,
+                    parser
+                )
+                const entrypointName = parser.utils.stringify(parsed)
+                buffer.outputExpression(
+                    `await state.viteAssetsManager.getMarkup(${entrypointName})`,
+                    token.filename,
+                    token.loc.start.line,
+                    false
+                )
+            },
+        })
+    }
 }

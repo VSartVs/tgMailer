@@ -47,7 +47,7 @@ onMounted(async () => {
 
 <template>
   <CRow>
-    <CCol :xs="3">
+    <CCol :xs="12" :sm="6" :md="6" :lg="4" :xl="4" :xxl="3">
       <WidgetStats
           color="primary"
           title="Боты"
@@ -57,7 +57,7 @@ onMounted(async () => {
           :counter="item ? item.botsCounter : 0"
       />
     </CCol>
-    <CCol :xs="3">
+    <CCol :xs="12" :sm="6" :md="6" :lg="4" :xl="4" :xxl="3">
       <WidgetStats
           color="info"
           title="Рассылки"
@@ -67,7 +67,7 @@ onMounted(async () => {
           :counter="item ? item.mailingsCounter : 0"
       />
     </CCol>
-    <CCol :xs="3">
+    <CCol :xs="12" :sm="6" :md="6" :lg="4" :xl="4" :xxl="3">
       <WidgetStats
           color="warning"
           title="Выполненные рассылки"
@@ -77,7 +77,7 @@ onMounted(async () => {
           :counter="item ? item.completedMailingsCounter :  0"
       />
     </CCol>
-    <CCol :xs="3">
+    <CCol :xs="12" :sm="6" :md="6" :lg="4" :xl="4" :xxl="3">
       <WidgetStats
           color="danger"
           title="Неудачные рассылки"
