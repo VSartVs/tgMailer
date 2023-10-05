@@ -14,6 +14,10 @@ const startMailingQuery = 'UPDATE `mailings` SET `status_id` = ?, `actual_start_
 const endMailingQuery = 'UPDATE `mailings` SET `status_id` = ?, `end_at` = ?  WHERE `id` = ?'
 const getChatQuery = 'SELECT * FROM `chats` WHERE `sent_at` IS NULL AND `mailing_id` = ? LIMIT 1'
 const updateChatQuery = 'UPDATE `chats` SET `sent_at`= ? WHERE `id`=?'
+const getBlockedChat = 'SELECT * FROM `block_chats`  WHERE `chat_id` = ? AND `bot_id` = ? LIMIT 1'
+const addBlockedChat = 'INSERT INTO `block_chats`(`chat_id`,`bot_id`, `status`, `created_at`) VALUES (?, ?, ?, ?)'
+
+const errorStatuses: number[] = [400, 403, 404]
 
 function delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
@@ -73,7 +77,14 @@ parentPort.on('message', async (data: { botId: number, mailingId: number }) => {
                    await DBHelper.executeQuery(updateChatQuery, [moment().format(), chat[0].id])
                 })
                 .catch(async (error) => {
+                    await DBHelper.executeQuery(updateChatQuery, [moment().format(), chat[0].id])
                     await DBHelper.addLog('Telegram API response ' + JSON.stringify(error.response.data), LogTypes.ERROR, true)
+                    if(errorStatuses.indexOf(error.response.data.error_code) !== -1) {
+                        const blockChat = await DBHelper.executeQuery(getBlockedChat, [chat[0].chat_id, mailing[0].bot_id])
+                        if(blockChat[0] === undefined)
+                            await DBHelper.executeQuery(addBlockedChat, [chat[0].chat_id, mailing[0].bot_id,
+                                error.response.data.error_code, moment().format()])
+                    }
                 })
 
         })

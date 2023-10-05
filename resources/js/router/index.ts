@@ -40,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'logs',
         name: 'Логи',
         component: () => import('../pages/Logs.vue'),
+      },
+      {
+        path: 'block/chats',
+        name: 'Заблокированные чаты',
+        component: () => import('../pages/BlockChats.vue'),
       }
     ]
   },

@@ -16,5 +16,11 @@ export default [
         name: 'Логи',
         to: '/logs',
         icon: 'cilInfo',
+    },
+    {
+        component: 'CNavItem',
+        name: 'Заблокированные чаты',
+        to: '/block/chats',
+        icon: 'cilAirplaneModeOff',
     }
   ]
